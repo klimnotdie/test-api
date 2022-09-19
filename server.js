@@ -22,7 +22,7 @@ const pool = new Pool({
   user: process.env.DB_USER || 'postgres',
   host: process.env.DB_HOST  ||'localhost',
   database: process.env.DB_DATABASE || 'api',
-  password: process.env.DB_PASSWORD||'nomore13',
+  password: process.env.DB_PASSWORD||'',
   port: process.env.DB_PORT || 5432,
 });
 
@@ -119,6 +119,7 @@ app.get('/info', authenticateJWT, async (req, res) => {
 })
 
 app.get('/latency', authenticateJWT, async (req, res) => {
+    //TODO проверить в каком виде будет отдавать на unix системах
     try {
         const ping = await exec('ping google.com', { encoding: 'binary' }, (err, stdout, stderr) => {
           if (err) {
